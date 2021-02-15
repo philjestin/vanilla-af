@@ -7,3 +7,5 @@ const getData = () => {
       loremEl.innerHTML = res
     });
 };
+
+getData();

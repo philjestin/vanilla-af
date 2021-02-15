@@ -17,12 +17,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: isDevelopment 
-      ? '[name].bundle.js'
-      : '[name].bundle-[hash:6].js',
-    chunkFilename: isDevelopment
-      ? '[name].bundle.js'
-      : '[name].bundle-[hash:6].js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
   },
   devtool: isDevelopment
     ? 'eval-source-map'
@@ -62,15 +58,23 @@ module.exports = {
       },
       {
         test: /\.(eot|otf|ttf|woff|woff2)$/,
-        loader: 'file?name=public/fonts/[name].[ext]'
+        use: [
+          {
+            loader: 'file?name=public/fonts/[name].[ext]',
+          },
+        ],
       },
       {
         test: /\.svg$/,
-        loader: 'file-loader',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'static/media/[name].[hash:8].[ext]'
+            }
+          }
+        ],
+      },
     ],
   },
   plugins: [
